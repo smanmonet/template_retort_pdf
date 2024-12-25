@@ -170,20 +170,20 @@ class settlement:
     for item in items:
         #รายการที่มีใน center
         row_center = [
-            [f'Contract No       :  {item.get('ContractNo','')}', f'Contract Status :  {item.get('Contract Status','')}',f'Settlement No. :  {item.get('Settlement No.','')}'],
-            [f'Customer Name :  {item.get('Customer Name','')}', f'{item.get('','')}',f'Fleet No.         : {item.get('Fleet No.','')}'],
-            [f'Chassis No.        :  {item.get('Chassis No.','')}', f'Registration No. :  {item.get('Registration No.','')}',f'{item.get('','')}'],
-            [f'Engine No.         :  {item.get('Engine No.','')}', f'Brand               :  {item.get('Brand','')}',f'Model             :  {item.get('Model','')}'],
-            [f'{item.get('','')}', f'Year                 :  {item.get('Year','')}', f'{item.get('','')}'],
-            [f'Due Date           :  {item.get('Due Date','')}', f'Due/Periods      :  {item.get('Due/Periods','')}',f'O/D Preiod       :  {item.get('O/D Preiod','')}'],    
-            [f'PDCUnpaid        :  {item.get('PDCUnpaid','')}', f'Pebate (%)        :  {item.get('Pebate','')}',f'Unrealized Income {item.get('Unrealized Income','')}'],
-            [f'Rental               :  {item.get('Rental','')}', f'VAT Rental        :  {item.get('VAT Rental','')}',f'Total Rental     :  {item.get('Total Rental','')}'], 
-            [f'Deposit             :  {item.get('Deposit','')}', f'VAT Dep. 7 %    :  {item.get('VAT Dep.','')}',f'Total Dep.       :  {item.get('Total Dep.','')}',],
+            [f'Contract No : {item.get('ContractNo','')}', f'Contract Status : {item.get('Contract Status','')}',f'Settlement No. : {item.get('Settlement No.','')}'],
+            [f'Customer Name : {item.get('Customer Name','')}', f'{item.get('','')}',f'Fleet No. : {item.get('Fleet No.','')}'],
+            [f'Chassis No. : {item.get('Chassis No.','')}', f'Registration No. : {item.get('Registration No.','')}',''],
+            [f'Engine No. : {item.get('Engine No.','')}', f'Brand : {item.get('Brand','')}',f'Model : {item.get('Model','')}'],
+            [f'{item.get('','')}',f'Year : {item.get('Year','')}', f'{item.get('','')}'],
+            [f'Due Date : {item.get('Due Date','')}', f'Due/Periods :  {item.get('Due/Periods','')}',f'O/D Preiod : {item.get('O/D Preiod','')}'],    
+            [f'PDCUnpaid : {item.get('PDCUnpaid','')}', f'Pebate (%) :  {item.get('Pebate','')}',f'Unrealized Income {item.get('Unrealized Income','')}'],
+            [f'Rental : {item.get('Rental','')}', f'VAT Rental :  {item.get('VAT Rental','')}',f'Total Rental : {item.get('Total Rental','')}'], 
+            [f'Deposit : {item.get('Deposit','')}', f'VAT Dep. 7 % :  {item.get('VAT Dep.','')}',f'Total Dep. : {item.get('Total Dep.','')}',],
             ]
     
         #data ที่ส่ง
         #data_center = [{'ContractNo':item['ContractNo'],'Details': item} for item in items]
-        #print(json.dumps(data_center,indent=4,ensure_ascii=False))
+        #print(json.dumps(row_center,indent=4,ensure_ascii=False))
     
     #รายการที่มี data_in_line
     row_datainline = ['Description','Ref.Receipt No.','Amount','%','VAT','Total Amount']
@@ -216,7 +216,6 @@ class settlement:
     #description = [{'Description':item['Description'],'Details' : item} for item in items_sk]
     #print(json.dumps(description,indent=4,ensure_ascii=False))
     
- 
     #ชื่อไฟล์ PDF ที่จะสร้าง
     output_pdf_path_settlement = 'template/settlement.pdf'
     
@@ -229,31 +228,32 @@ class claim:
     #รายการข้อมูล Topic
     for item in items:
         row_topic = [
-            [f'Pgm. : {item.get('Pgm.','')}',f'A/R INSURANCE CLAIM FORM {item.get('','')}',f'Date : {datetime.now().strftime('%d/%m/%Y')}'],
-            [f'User : {item.get('User','')}',f'     As of  : {item.get('As of')}',f'Time : {datetime.now().strftime('%H:%M:%S')}']
+            [f'Pgm. : {item.get('Pgm.','')}',f'A/R INSURANCE CLAIM FORM',f'Date : {datetime.now().strftime('%d/%m/%Y')}'],
+            [f'User : {item.get('User','')}',f'As of : {item.get('As of')}',f'Time : {datetime.now().strftime('%H:%M:%S')}']
         ]   
         #print(json.dumps(row_topic,indent=4,ensure_ascii=False))
     #รายการข้อมูล center
     for item in items:
         # รายการที่มี
         row_center = [
-            [f'Contract No              :  {item.get('ContractNo','')}' , f'Claim Type         :  {item.get('Claim Type','')}'],
-            [f'Customer Name        :  {item.get('Customer Name','')}'  , f'Registration No     :  {item.get('Registration No','')}'],
-            [f'Create Date              :  {item.get('Create Date','')}', f'Brand                  :  {item.get('Brand','')}'],
-            [f'Inform Date              :  {item.get('Inform Date','')}', f'CLR.DATE - BRNO  :  {item.get('CLR.DATE - BRNO','')}'],
-            [f'Contract Status         :  {item.get('Contract Status','')}  {item.get('Create Date','')}', f'Outstanding Bal    :  {item.get('Outstanding Bal','')}'],
-            [f'ค่าสินไหม (Inc. Vat)     :  {item.get('ค่าสินไหม','')}'      , f'Unrealized Bal      :  {item.get('Unrealized Bal','')}'],
-            [f'ค่าซาก (Inc. Vat)         :  {item.get('ค่าซาก','')}'      , f'R.V.                     :  {item.get('R.V.','')}'],
-            [f'Deposit Amt (Inc. Vat) :  {item.get('Deposit Amt','')}'  , f'Discount              :  {item.get('Discount','')}'],
-            [f'Vat of Dep.               :  {item.get('Vat of Dep.','')}', f'Other Charge        :  {item.get('Other Charge','')}'],
-            [f'Book Value               :  {item.get('Book Value','')}', f'Change Bill Code  :  {item.get('Change Bill Code','')}']
+            [f'Contract No : {item.get('ContractNo','')}' ,     f'Claim Type : {item.get('Claim Type','')}'],
+            [f'Customer Name : {item.get('Customer Name','')}', f'Registration No : {item.get('Registration No','')}'],
+            [f'Create Date : {item.get('Create Date','')}',     f'Brand : {item.get('Brand','')}'],
+            [f'Inform Date : {item.get('Inform Date','')}',     f'CLR.DATE - BRNO  :  {item.get('CLR.DATE - BRNO','')}'],
+            [f'Contract Status : {item.get('Contract Status','')}  {item.get('Create Date','')}', f'Outstanding Bal : {item.get('Outstanding Bal','')}'],
+            [f'ค่าสินไหม (Inc. Vat) : {item.get('ค่าสินไหม','')}',  f'Unrealized Bal : {item.get('Unrealized Bal','')}'],
+            [f'ค่าซาก (Inc. Vat) : {item.get('ค่าซาก','')}' ,     f'R.V. : {item.get('R.V.','')}'],
+            [f'Deposit Amt (Inc. Vat) : {item.get('Deposit Amt','')}', f'Discount : {item.get('Discount','')}'],
+            [f'Vat of Dep. : {item.get('Vat of Dep.','')}',     f'Other Charge : {item.get('Other Charge','')}'],
+            [f'Book Value : {item.get('Book Value','')}',       f'Change Bill Code : {item.get('Change Bill Code','')}']
         ]
         #json_data = [{'Details': item} for item in row_center]
         #print(json.dumps(row_center, indent=4,ensure_ascii=False))
     #ข้อมูลในตาราง
     for item in items:
         #หัวข้อในตาราง
-        header = [f'O/S Balance Net Discount', 
+        header = [
+        f'O/S Balance Net Discount', 
         f'Other Charge',
         f'R.V.',
         f'Vat of R.V.',

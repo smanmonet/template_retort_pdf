@@ -12,32 +12,52 @@ class PDF(FPDF):
     #ใส่ข้อความในกรอบ
     def topic(self,row_topic):
         self.set_font('THSarabunNew', '', 12)
-        label_width = 80  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
-        
+        label_width = 50  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
         cell_height = 5  # ความสูงของเซลล์
-        
+        #print(json.dumps(row_topic,indent=4,ensure_ascii=False))
+        # แยกข้อความก่อนและหลัง `:`
         for row in row_topic:
             for data in row:
-                self.cell(label_width,cell_height,data,align='L')
-            self.ln(5)
+                if ':' in data:
+                    # แยกข้อความก่อนและหลัง `:`
+                    key, value = data.split(':', 1)  # ใช้ `, 1` เพื่อแยกเฉพาะครั้งแรกที่เจอ
+                    key = key.strip()  # ลบช่องว่างส่วนเกิน
+                    value = value.strip()  # ลบช่องว่างส่วนเกิน
+                    #print(f"Key: {key}, Value: {value}")
+                    # คุณสามารถนำ `key` และ `value` ไปใช้งานต่อได้
+                    self.cell(8,cell_height,key,align='L')
+                    self.cell(3,cell_height,':',align='L')
+                    self.cell(70,cell_height,value,align='L')
+                else:
+                    self.cell(81,cell_height,data,align='L')
+            self.ln()
         self.ln(2)
-    
     # data ด้านบน
     def center(self,row_center):
+        #print(json.dumps(row_center, indent=4,ensure_ascii=False))
+
         self.set_font('THSarabunNew', '', 12)
-        label_width = 90  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
+        label_width = 85  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
         cell_height = 5  # ความสูงของเซลล์
         # สร้างแต่ละแถว
         for row in row_center:
             for data in row:
-                if 'Claim Type' in data:
-                    self.set_font('THSarabunNew Bold', 'B', 12)
-                    self.cell(label_width,cell_height,data,align='L')
-                    self.set_font('THSarabunNew', '', 12)
-                else: 
-                    self.cell(label_width,cell_height,data,align='L')
-            self.ln(5)
-        self.ln(3)  # เพิ่มระยะห่างหลังจากตารางด้่านล่าง
+                if ':' in data:
+                    # แยกข้อความก่อนและหลัง `:`
+                    key, value = data.split(':', 1)  # ใช้ `, 1` เพื่อแยกเฉพาะครั้งแรกที่เจอ
+                    key = key.strip()  # ลบช่องว่างส่วนเกิน
+                    value = value.strip()  # ลบช่องว่างส่วนเกิน
+                    #print(f"Key: {key}, Value: {value}")
+                    # คุณสามารถนำ `key` และ `value` ไปใช้งานต่อได้
+                    self.cell(28,cell_height,key,align='L')
+                    self.cell(3,cell_height,':',align='L')
+                    self.cell(label_width,cell_height,value,align='L')
+                else:
+                    self.cell(81,cell_height,data,align='L')
+            self.ln()
+        self.ln(6)
+        
+                    
 
     # data in colum
     def table_data(self,header,data_table,col_widths):
@@ -62,7 +82,7 @@ class PDF(FPDF):
                 self.cell(width, 5, item, border=1, align='R')  # ใช้ความสูง 5
             self.ln()
         
-        self.ln(10)
+        self.ln(7)
     
     # เส้นต่างๆใน template, บันทึก, ตรวจสอบ
     def lines(self):
@@ -99,10 +119,10 @@ class PDF(FPDF):
         cell_height = 5  # ความสูงของเซลล์
         max_length = 80 # กำหนดความยาวสูงสุดต่อบรรทัด
         
-        print('ใบเสร็จรับเงิน และ ใบกํากับภาษี ' + json.dumps(row_table1,indent=4,ensure_ascii=False))
-        print('ใบเสร็จรับเงิน ค่าซากรถ ' + json.dumps(row_table2,indent=4,ensure_ascii=False))
-        print('ใบเสร็จรับเงิน ค่าสินไหมทดแทน ' + json.dumps(row_table3,indent=4,ensure_ascii=False))
-        print('ใบเสร็จงวด ' + json.dumps(row_table4,indent=4,ensure_ascii=False))
+        #print('ใบเสร็จรับเงิน และ ใบกํากับภาษี ' + json.dumps(row_table1,indent=4,ensure_ascii=False))
+        #print('ใบเสร็จรับเงิน ค่าซากรถ ' + json.dumps(row_table2,indent=4,ensure_ascii=False))
+        #print('ใบเสร็จรับเงิน ค่าสินไหมทดแทน ' + json.dumps(row_table3,indent=4,ensure_ascii=False))
+        #print('ใบเสร็จงวด ' + json.dumps(row_table4,indent=4,ensure_ascii=False))
         
         for row in row_table1:
             if 'ชื่อลูกค้า' in row:

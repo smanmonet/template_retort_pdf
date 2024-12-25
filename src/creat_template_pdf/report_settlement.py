@@ -39,17 +39,24 @@ class PDF(FPDF):
         self.rect(5, 5, 200, 185)  # ตีเส้นรอบขอบกระดาษ (x, y, width, height)
     
     def center(self,row_center):
+        #print(json.dumps(row_center,indent=4,ensure_ascii=False))
         self.set_font('THSarabunNew', '', 12)
-        label_width = 70  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
+        label_width = 45  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
         cell_height = 5  # ความสูงของเซลล์
 
-        #สร้างแต่ละแถว
         for row in row_center:
-            
-            self.cell(label_width,cell_height,row[0],align='L')
-            self.cell(label_width,cell_height,row[1],align='L')
-            self.cell(label_width,cell_height,row[2],align='L',new_x=XPos.LMARGIN,new_y=YPos.NEXT)
-           
+            for data in row:
+                if ':' in data:
+                    key,value = data.split(':',1)
+                    key = key.strip()
+                    value = value.strip()
+                    self.cell(21,cell_height,key,align='L')
+                    self.cell(3,cell_height,':',align='L')
+                    self.cell(label_width,cell_height,value,align='L')
+                else:
+                    self.cell(69,cell_height,data,align='L')
+            self.ln()
+        
         self.ln(9)
     
     def data_in_lines(self,row_datainline):
