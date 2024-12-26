@@ -64,19 +64,58 @@ class PDF(FPDF):
         self.line(6, 131  , 290,131)
         self.line(6, 131 + 10  , 290,131+10)
         
-    def center(self,row_center):
+    def center(self,row_center_l,row_center_r):
+        #print('row_center_l'+json.dumps(row_center_l,indent=4,ensure_ascii=False))
+        #print('row_center_r'+json.dumps(row_center_r,indent=4,ensure_ascii=False))
         self.set_font('THSarabunNew','',12)
-        label_width = 50  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล 
+        label_width = 60  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล 
         cell_height = 5  # ความสูงของเซลล์
+
+         
+        # สำหรับ row_l (ซ้าย) และ row_r (ขวา)
+        for row_l, row_r in zip(row_center_l, row_center_r):
+            # วาดข้อมูลด้านซ้าย (row_l)
+            self.set_x(5)  # ตำแหน่งเริ่มต้นของเซลล์ฝั่งซ้าย
+            for data in row_l:
+                if ':' in data:
+                    key, value = data.split(':', 1)
+                    key = key.strip()
+                    value = value.strip()
+                    
+                    if key.isdigit():  # ถ้า key เป็นตัวเลข
+                        self.cell(23, cell_height, key, align='R')  # ระบุข้อความที่แตกต่าง
+                        self.cell(2, cell_height, ':', align='R')
+                        self.cell(30, cell_height, value, align='L')
+                    elif 'Ref' in key:
+                        self.cell(10, cell_height, key, align='L')
+                        self.cell(3, cell_height, ':', align='C')
+                        self.cell(45, cell_height, value, align='L')
+                    else:
+                        self.cell(22, cell_height, key, align='L')  # กรณี key ไม่ใช่ตัวเลข
+                        self.cell(3, cell_height, ':', align='L')
+                        self.cell(30, cell_height, value, align='L')
                 
-        for row in row_center:
-            self.cell(label_width,cell_height,row[0],align='L')
-            self.cell(65,cell_height,row[1],align='L')
-            self.cell(44,cell_height,row[2],align='L')
-            self.cell(70,cell_height,row[3],align='L')
-            self.cell(label_width,cell_height,row[4],align='L')
-            self.ln(5)
-        self.ln(1)
+                else:
+                    self.cell(55, cell_height, data, align='L')
+                
+            # วาดข้อมูลด้านขวา (row_r)
+            self.set_x(164)  # ตำแหน่งเริ่มต้นของเซลล์ฝั่งขวา
+            for data in row_r:
+                if ':' in data:
+                    key, value = data.split(':', 1)
+                    key = key.strip()
+                    value = value.strip()
+                    if key:
+                        self.cell(22, cell_height, key, align='L')
+                        self.cell(3, cell_height, ':', align='L')
+                        self.cell(45, cell_height, value, align='L')
+                else:
+                    self.set_font('THSarabunNew Bold','B',12)
+                    self.cell(70,cell_height,data,align='L')
+                    self.set_font('THSarabunNew','',12)
+                # ขึ้นบรรทัดใหม่เมื่อจบข้อมูลในแถวเดียวกัน
+            self.ln(cell_height)
+        self.ln(5)  
                      
     def in_line(self):
         self.set_font('THSarabunNew Bold','B',10)
@@ -115,15 +154,16 @@ class PDF(FPDF):
             self.cell(label_width,cell_height,row[1],align='C')
         self.ln(6)
 
-    def content(self, data_content):   
-       #print(json.dumps(data_content,indent=4,ensure_ascii=False))
+    def content(self, data_content):  
+        #print(json.dumps(data_content,indent=4,ensure_ascii=False))
         label_width = 14.5  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล 
         cell_height = 5  # ความสูงของเซลล์
         #รายการข้อมูล
         self.set_font('THSarabunNew','',10)
         line_height = 6
         
-        for row in data_content:    
+        for row in data_content:  
+           
             # ตรวจสอบว่าเต็มหน้าแล้วหรือยัง
             if self.get_y() + line_height > self.h - 15:  # ตรวจสอบว่าเกินระยะขอบล่างหรือไม่
                 self.add_page()  # เพิ่มหน้าใหม่
@@ -132,11 +172,19 @@ class PDF(FPDF):
                 #self.line_new_page() # วาดเส้นในหน้าใหม่
              
             for data in row: 
-                self.cell(label_width, cell_height, data, align='C') 
+                if ':' in data:
+                    # แยกข้อความก่อนและหลัง `:`
+                    key, value = data.split(':', 1)  # ใช้ `, 1` เพื่อแยกเฉพาะครั้งแรกที่เจอ
+                    key = key.strip()  # ลบช่องว่างส่วนเกิน
+                    value = value.strip()  # ลบช่องว่างส่วนเกิน
+                    self.cell(label_width,cell_height,value,align='C')
+               
+                else:
+                    print('False')
             self.ln(line_height)  # เลื่อนบรรทัดใหม่ 
             
 # ฟังก์ชันสำหรับสร้าง PDF
-def create_statement_pdf(output_file,row_center,data_test ,data_content):
+def create_statement_pdf(output_file,row_l,row_r,data_test ,data_content):
     pdf = PDF('L', 'mm', 'A4')
     pdf.set_auto_page_break(auto=False, margin=15)
 
@@ -146,7 +194,7 @@ def create_statement_pdf(output_file,row_center,data_test ,data_content):
     pdf.add_page()
     pdf.head(data_test)
     pdf.lines()
-    pdf.center(row_center)
+    pdf.center(row_l,row_r)
     pdf.in_line()
     pdf.content(data_content)
     pdf.output(output_file)

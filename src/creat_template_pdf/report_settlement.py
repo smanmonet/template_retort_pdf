@@ -66,16 +66,41 @@ class PDF(FPDF):
         self.ln(10)
             
     def description(self,row_description,date):
+        #print(json.dumps(row_description,indent=4,ensure_ascii=False))
+        self.set_font('THSarabunNew', '', 12)
+        label_width = 34  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
+        cell_height = 5  # ความสูงของเซลล์
         
         date_value = [] # เก็บค่า Settle data 
         for row in date:
             if row[1]:
                 date_value.append(row[1])  
                 
-        self.set_font('THSarabunNew', '', 12)
-        label_width = 34  # ความกว้างของเซลล์ที่เก็บชื่อข้อมูล
-        cell_height = 5  # ความสูงของเซลล์
+        for row in row_description:
+            for data in row:
+                if ':' in data:
+                    key,value = data.split(':',1)
+                    key = key.strip()
+                    value = value.strip()
+                    if 'Purchase by Customer' in data:
+                        self.set_font('THSarabunNew Bold', 'B', 12)
+                        self.ln(5)
+                        self.cell(label_width, cell_height, 'Option', align='L', ln=True)
+                        self.set_font('THSarabunNew', '', 12)
+                        self.cell(label_width, cell_height, value , align='L')
+                    elif 'หมายเหตุ' in data:
+                        # ใส่วันที่จาก row[1] ลงหลังข้อความหมายเหตุ
+                        if date_value:  # ตรวจสอบว่า date_value มีข้อมูล
+                            self.cell(label_width, cell_height, value + ' : คำนวณถึงวันที่ ' + date_value[0] + ' เท่านั้น หากเลยกำหนดการชำระเงินจำนวนที่ตั้งไว้ อาจมีการเปลี่ยนแปลง', align='L')
+                    else:
+                        self.cell(label_width, cell_height,value,align='L')
+            self.ln()
+                
         
+        
+        
+        '''
+                
         for row in row_description:    
             for data in row: 
                 if 'Purchase by Customer' in data:
@@ -93,9 +118,10 @@ class PDF(FPDF):
                         self.cell(label_width, cell_height, data, align='L')
                 else:
                     self.cell(label_width, cell_height, data, align='L') 
-            self.ln(5)  # เลื่อนบรรทัดใหม่    
+            self.ln(5)  # เลื่อนบรรทัดใหม่ 
+            '''   
         self.ln(8)   
-            
+
 def create_settlement_pdf(output_file,row_head,row_center,row_datainline,row_description,data_head):                 
     #สร้างไฟล์ PDF    
     pdf = PDF()

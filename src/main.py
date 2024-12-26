@@ -32,95 +32,88 @@ class statement:
        
     #รายการที่มีใน center 
     for item in items:
-        row_center = [
-            #row1-5 ============================================================================================================================================================================================================================================================
-            [f'Contract No.       :  {item.get('ContractNo','')}',     f'Customer No. : {item.get('Customer No.','')}',  f'Guarantor No : {item.get('Guarantor No','')}',f'Licence No.       : {item.get('Licence No.','')}',f'Principal   Amt.    : {item.get('Principal Amt.','')}'],
-            [f'Customer Name  :  {item.get('Customer Name','')}','','',f'Car Model         : {item.get('Car Model','')}',f'Down/Dep   Amt.'], 
-            ['','','',f'Car Color          : {item.get('Car Color','')}',f'Finance Amt.       : {item.get('Principal Amt.','')}'],
-            [f'Customer Add.  1 : {item.get('Customer Add1','')}','',f'Tel. {item.get('Tel 1','')}',f'Cate/Car Type   : {item.get('Cate/Car Type')}',f'Install  Amt.         : {item.get('Install Amt.','')}'],
-            [f'Customer Add.  2 : {item.get('Customer Add2','')}','',f'Tel. {item.get('Tel 2','')}',f'Agent/C.C          : {item.get('Agent/C.C')}',f'D.C.                     : {item.get('D.C.','')}'],
-             
-            #row6-9 =========================================================================================================================================================================================
-            [f'Customer Add.  3 : {item.get('Customer Add3','')}','',f'Tel. {item.get('Tel 3','')}',f'Policy No.          : {item.get('Policy No.')}',f'Int.Rate                : {item.get('Int.Rate','')}'],
-            ['','','',f'End/P Date        : {item.get('End/P Date','')}',f'O/S Balance          : {item.get('O/S Balance')}'],
-            [f'Guarantor Name   : {item.get('Guarantor Name','')}','','',f'End/L Date        : {item.get('End/L Date')}',f'O/D  Amt.             : {item.get('O/D Amt.','')}'],
-            ['','','',f'Ins. Company     : {item.get('Ins. Company')}',f'Unrealize Bal.        : {item.get('Unrealize Bal.')}'],
-            
-            #row10-16 ============================================================================================================================================================================================================================================
-            [f'Guarantor Add.  1 : {item.get('Guarantor Add1','')}','',f'Tel. {item.get('Tel Guarantor 1','')}',f'No. Period          : {item.get('No. Period','')}     Eff.Rate : {item.get('Eff.Rate')}',f'S/C  Grade            : {item.get('S/C Grade','')}'],
-            [f'Guarantor Add.  2 : {item.get('Guarantor Add2','')}','',f'Tel. {item.get('Tel Guarantor 2','')}',f'F/L Method        : {item.get('F/L Method','')}',f'Vehicle  Tex          : {item.get('Vehicle Tex','')}'],
-            [f'Guarantor Add.  3 : {item.get('Guarantor Add3','')}','',f'Tel. {item.get('Tel Guarantor 3','')}',f'Officer/B-Coll      : {item.get('Officer/B-Coll','')}',f'Career                  : {item.get('Career','')}'],
-            ['','','',f'Ending Date       : {item.get('Ending Date','')}',f'Jusgment   Debt.   : {item.get('Jusgment Debt.','')}'],
-            ['','','',f'cont./F-P Date    : {item.get('cont./F-P Date','')}',f'Flag   `l`               : {item.get('Flag','')}'],
-            [f'Ref_1 : {item.get('Ref_1','')}','','','','***CREDIT***'],
-            [f'Ref_2 : {item.get('Ref_2','')}','','','',''],   
-            
-            # data ข้างใต้ Ref_2 =======================================
-            ['','','',f'R.V.Amount : {item.get('R.V.Amount','')}',''],
-            ['','','',f'VAT.+INSTALL : {item.get('VAT.+INSTALL','')}',f'R.V.Due Date : {item.get('R.V.Due Date','')}'],
-            [f'VAT.-STS : {item.get('VAT.-STS','')}',f'VAT.-VALANCE : {item.get('VAT.-VALANCE','')}',f'VAT./PERIOD : {item.get('VAT./PERIOD','')}',f'LAST INST+VAT : {item.get('LAST INST+VAT','')}',f'VAT.OVERDUE : {item.get('VAT.OVERDUE','')}'],
-            ['','','',f'Balloon Amount : {item.get('Balloon Amount')}',''],
-            ['','','','',f'%Balloon : {item.get('%Balloon')}'],
-            [f'Engine No.  : {item.get('Engine No.')}','','','',''],
-            [f'Chassis No. : {item.get('Chassis No.')}','','','','']   
+        row_center_l = [
+            [f'Contract No. : {item.get('ContractNo','')}', f'Customer No. : {item.get('Customer No.','')}', f'Guarantor No : {item.get('Guarantor No','')}'],
+            [f'Customer Name : {item.get('Customer Name','')}','',''], 
+            ['','',''],
+            [f'Customer Add. 1 : {item.get('Customer Add1','')}','',f'Tel. {item.get('Tel 1','')}'],
+            [f'2 : {item.get('Customer Add2','')}','',f'Tel. {item.get('Tel 2','')}'],
+            [f'3 : {item.get('Customer Add3','')}','',f'Tel. {item.get('Tel 3','')}'],
+            ['','',''],
+            [f'Guarantor Name : {item.get('Guarantor Name','')}','',''],
+            ['','',''],
+            [f"Guarantor Add. 1 : {item.get('Guarantor Add1','')}", '', f"Tel. {item.get('Tel Guarantor 1','')}"],
+            [f"2 : {item.get('Guarantor Add2','')}", '', f"Tel. {item.get('Tel Guarantor 2','')}"],
+            [f"3 : {item.get('Guarantor Add3','')}", '', f"Tel. {item.get('Tel Guarantor 3','')}"],
+            ['','',''],
+            ['','',''],
+            [f'Ref_1 : {item.get('Ref_1','')}',''],
+            [f'Ref_2 : {item.get('Ref_2','')}',''],   
+            ['','',''],
+            ['','',''],
+            [f'VAT. - STS : {item.get('VAT.-STS','')}',f'VAT.-BALANCE : {item.get('VAT.-BALANCE','')}',f'VAT./PERIOD : {item.get('VAT./PERIOD','')}'],
+            ['','',''],
+            [f'Engine No. : {item.get('Engine No.','')}','',''],
+            [f'Chassis No. : {item.get('Chassis No.','')}','',''],   
+        
+        ]
+        row_center_r = [
+            [f'Licence No. : {item.get('Licence No.','')}',f'Principal Amt. : {item.get('Principal Amt.','')}'],
+            [f'Car Model : {item.get('Car Model','')}',f'Down/Dep Amt. : {item.get('Down/Dep Amt.','')}'],
+            [f'Car Color : {item.get('Car Color','')}',f'finance Amt. : {item.get('finance Amt.','')}'],
+            [f'Cate/Car Type : {item.get('Cate/Car Type','')}',f'Install Amt. : {item.get('Install Amt.','')}'],
+            [f'Agent/C.C : {item.get('Agent/C.C','')}',f'D.C. : {item.get('D.C.','')}'],
+            [f'Policy No. : {item.get('Policy No.','')}',f'Int.Rate : {item.get('Int.Rate','')}'],
+            [f'End/P Date : {item.get('End/P Date','')}',f'O/S Balance : {item.get('O/S Balance','')}'],
+            [f'End/L Date : {item.get('End/L Date','')}',f'O/D  Amt. : {item.get('O/D Amt.','')}'],
+            [f'Ins. Company : {item.get('Ins. Company','')}',f'Unrealize Bal. : {item.get('Unrealize Bal.','')}'],
+            [f'No. Period : {item.get('No. Period','')}      Rate : {item.get('Eff.Rate','')}',f'S/C  Grade : {item.get('S/C Grade','')}'],
+            [f'F/L Method : {item.get('F/L Method','')}',f'Vehicle  Tex : {item.get('Vehicle Tex','')}'],
+            [f'Officer/B-Coll : {item.get('Officer/B-Coll','')}',f'Career : {item.get('Career','')}'],
+            [f'Ending Date : {item.get('Ending Date','')}',f'Jusgment Debt. : {item.get('Jusgment Debt.','')}'],
+            [f'cont./F-P Date : {item.get('cont./F-P Date','')}',f'Flag   `l` : {item.get('Flag','')}'],
+            ['','***DREBIT***'],
+            ['',''],
+            [f'R.V.Amount : {item.get('R.V.Amount','')}',''],
+            [f'VAT.+INSTALL : {item.get('VAT.+INSTALL','')}',f'R.V. Due Date : {item.get('R.V. Due Date','')}'],
+            [f'LASTINST + VAT : {item.get('LASTINST + VAT','')}',f'VAT.OVERDUE : {item.get('VAT.OVERDUE','')}'],
+            [f'Balloon Amount : {item.get('Balloon Amount','')}'],
+            ['',f'%Balloon : {item.get('%Balloon','')}'],
+            ['',''],
+            ['',''],
         ]
         
     #ข้อมูลที่อยู่ใน content
     content_data = [] #ค่าที่ส่งไปยังไฟล์ PFD
-    field_content = [] #สำหรับตรวจสอบค่า field and value ที่ส่งไป 
     for item in items_sk:
-        field = [
-            [f'line_data {item.get('line_data')}'],
-            [f'PERIOD FR-TO {item.get('Period Fr-To')}'],
-            [f'MONTH FR-TO {item.get('Month Fr-To')}'],
-            [f'PAY TYPE {item.get('Pay Type')}'],
-            [f'PAY CODE {item.get('Pay Code')}'],
-            [f'CHQ STS. {item.get('CHQ Sts')}'],
-            [f'BANK CODE {item.get('BANG Code')}'],
-            [f'BAND CODE { item.get('BAND Code')}'],
-            [f'CHEQUE NO. { item.get('CHEQUE No'),}'],
-            [f'CHEQUE DUE DATE {item.get('CHEQUE Due date')}'],
-            [f'PAYMENT DATE {item.get('PAYMENT Date')}'],
-            [f'PAYMENT AMOUNT {item.get('PAYMENT Amount')}'],
-            [f'INSTALLMENT AMOUNT { item.get('INSTALLMENT Amount')}'],
-            [f'VAT AMOUNT { item.get('VAT Amount')}'],
-            [f'BALANCE AMOUNT { item.get('BALANCE Amount')}'],
-            [f'DISCOUNT AMOUNT { item.get('DISCOUNT Amount')}'],
-            [f'RECEIPT NO. { item.get('RECEIPT No')}'],
-            [f'DATE CHQ.CLR/RTN { item.get('DATE CHQ')}'],
-            [f'TEMP#. NO. { item.get('TEMP# No')}'],
-            [f'TEMP# DATE { item.get('TEMP# Date')}'],
-            [f'NO. O/D { item.get('NO O/D')}']
-        ]
         content = [
-            item.get('Period Fr-To'),
-            item.get('Month Fr-To'),
-            item.get('Pay Type'),
-            item.get('Pay Code'),
-            item.get('CHQ Sts'),
-            item.get('BANG Code'),
-            item.get('BAND Code'),
-            item.get('CHEQUE No'),
-            item.get('CHEQUE Due date'),
-            item.get('PAYMENT Date'),
-            item.get('PAYMENT Amount'),
-            item.get('INSTALLMENT Amount'),
-            item.get('VAT Amount'),
-            item.get('BALANCE Amount'),
-            item.get('DISCOUNT Amount'),
-            item.get('RECEIPT No'),
-            item.get('DATE CHQ'),
-            item.get('TEMP# No'),
-            item.get('TEMP# Date'),
-            item.get('NO O/D')
-
+            #'line_data : {item.get('line_data')}',
+            f'PERIOD FR-TO : {item.get('Period Fr-To','')}',
+            f'MONTH FR-TO : {item.get('Month Fr-To','')}',
+            f'PAY TYPE : {item.get('Pay Type','')}',
+            f'PAY CODE : {item.get('Pay Code','')}',
+            f'CHQ STS. : {item.get('CHQ Sts','')}',
+            f'BANK CODE : {item.get('BANG Code','')}',
+            f'BAND CODE : {item.get('BAND Code','')}',
+            f'CHEQUE NO. : {item.get('CHEQUE No','')}',
+            f'CHEQUE DUE DATE : {item.get('CHEQUE Due date','')}',
+            f'PAYMENT DATE : {item.get('PAYMENT Date','')}',
+            f'PAYMENT AMOUNT : {item.get('PAYMENT Amount','')}',
+            f'INSTALLMENT AMOUNT : {item.get('INSTALLMENT Amount','')}',
+            f'VAT AMOUNT : {item.get('VAT Amount','')}',
+            f'BALANCE AMOUNT : {item.get('BALANCE Amount','')}',
+            f'DISCOUNT AMOUNT : {item.get('DISCOUNT Amount','')}',
+            f'RECEIPT NO. : {item.get('RECEIPT No','')}',
+            f'DATE CHQ.CLR/RTN : {item.get('DATE CHQ','')}',
+            f'TEMP#. NO. : {item.get('TEMP# No','')}',
+            f'TEMP# DATE : {item.get('TEMP# Date','')}',
+            f'NO. O/D : {item.get('NO O/D','')}'
         ]
-        field_content.append(field)
         content_data.append(content) 
         
-    # แสดง JSON datac
-    #Data_line = [{'Data_line':item['line_data'],'Details' : item} for item in items_sk]
-    #print(json.dumps(Data_line,indent=4,ensure_ascii=False))
+        # แสดง JSON datac
+        #Data_line = [{'Data_line':item['line_data'],'Details' : item} for item in items_sk]
+        #print(json.dumps(Data_line,indent=4,ensure_ascii=False))
     
     
     #ชื่อไฟล์ PDF ที่จะสร้าง
@@ -190,7 +183,6 @@ class settlement:
     
     #รายการข้อมูล description
     row_description = [] 
-    field_description = []  
     for item in items_sk:
         row_field_description = [
             f'Description : {item.get('Description','')} ',
@@ -200,21 +192,11 @@ class settlement:
             f'VAT : {item.get('VAT','')}',
             f'Total Amount : {item.get('Total Amount','')}'
         ]
-        row = [
-            item.get('Description', ''),
-            item.get('Ref.Receipt', ''),
-            item.get('Amount', ''),
-            item.get('%', ''),
-            item.get('VAT', ''),
-            item.get('Total Amount', '')
-        ]
-        row_description.append(row)# ส่งไปยังหน้า PDF
-        field_description.append(row_field_description)# data JSON
-
+        row_description.append(row_field_description)# ส่งไปยังหน้า PDF
         
-    # แสดง JSON datac
-    #description = [{'Description':item['Description'],'Details' : item} for item in items_sk]
-    #print(json.dumps(description,indent=4,ensure_ascii=False))
+        #description = [{'Description':item['Description'],'Details' : item} for item in items_sk]
+        #print(json.dumps(description,indent=4,ensure_ascii=False))
+      
     
     #ชื่อไฟล์ PDF ที่จะสร้าง
     output_pdf_path_settlement = 'template/settlement.pdf'
@@ -318,7 +300,7 @@ class claim:
     output_pdf_path_claim = 'template/claimform.pdf'
     
 # เรียก class statement
-create_statement_pdf(statement.output_pdf_path_statement,statement.row_center,statement.data_head,statement.content_data)
+create_statement_pdf(statement.output_pdf_path_statement,statement.row_center_l,statement.row_center_r,statement.data_head,statement.content_data)
 # เรียก class settlements
 create_settlement_pdf(settlement.output_pdf_path_settlement,settlement.row_head,settlement.row_center,settlement.row_datainline,settlement.row_description,settlement.data_haed)
 # เรียก class claim
